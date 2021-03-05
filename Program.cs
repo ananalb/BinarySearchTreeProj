@@ -24,6 +24,9 @@ namespace BinarySearchTree
             mylist.Add(node4);
             mylist.Add(node5);
             mylist.Add(node6);
+
+
+            mylist.Search(2);
         }
     }
 }
