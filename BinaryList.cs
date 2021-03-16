@@ -14,7 +14,7 @@ namespace BinarySearchTree
 
         public BinaryList()
         {
-
+            RootNode = null;
         }
 
 
@@ -29,52 +29,89 @@ namespace BinarySearchTree
                 Node currentNode = RootNode;
                 while (true)
                 {
-                    if (nodeToAdd.Data > currentNode.Data || currentNode.RightNode == null)
+                    if (nodeToAdd.Data > currentNode.Data)
                     {
-                        currentNode.RightNode = nodeToAdd;
-                        break;
+                        if (currentNode.RightNode == null)
+                        {
+                            currentNode.RightNode = nodeToAdd;
+                            break;
 
+                        }
+                        else if (currentNode.RightNode != null)
+                        {
+                            currentNode.RightNode = currentNode;
+                        }
 
                     }
                     else
                     {
-                        if (nodeToAdd.Data < currentNode.Data || currentNode.LeftNode == null)
+                        if (nodeToAdd.Data < currentNode.Data)
                         {
-                            currentNode.LeftNode = nodeToAdd;
-                            break;
+                            if (currentNode.LeftNode == null)
+                            {
+                                currentNode.LeftNode = nodeToAdd;
+                                break;
+                            }
+                            else if (currentNode.LeftNode != null)
+                            {
+                                currentNode.LeftNode = currentNode;
+                            }
 
                         }
                     }
-
                 }
             }
         }
         public bool Search(int dataToFind)
         {
-            int position = 1;
-            Node node = RootNode;
-            while (node != null)
+            bool isFound = false;
+            Node currentNode = RootNode;
+            while (currentNode != null && isFound == false)
             {
-                if (node.Data != dataToFind)
+                if (currentNode.Data == dataToFind)
                 {
-                    break;
+                    isFound = true;
                 }
-                position++;
-                node = RootNode;
+                if (dataToFind < currentNode.Data)
+                {
+                    if (currentNode.LeftNode == null)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        currentNode = currentNode.LeftNode;
+                    }
+                }
+                if (dataToFind > currentNode.Data)
+                {
+                    if (currentNode.RightNode == null)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        currentNode = currentNode.RightNode;
+                    }
+                }
             }
-            if (node == null)
+            if (isFound == true)
             {
-                Console.WriteLine($"{dataToFind} not found in list");
-                return false;
+                Console.WriteLine("Found it!");
+                return true;
             }
             else
             {
-                Console.WriteLine($"{dataToFind} is at position {position}");
-                return true;
+                Console.WriteLine("Didn't find it");
+                return false;
             }
         }
     }
 }
+    
+    
+    
+
 
 
     
